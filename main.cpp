@@ -10,9 +10,34 @@
 #include <mutex>
 #include <shared_mutex>
 
+class Labyrinth
+{
+    private:
+
+    public:
+    Labyrinth ()
+    {
+
+    }
+
+
+
+
+
+};
+
+
+
+
 int main(void)
 {
-    std::cout << "Hello world!" << "\n";
+    // Number of threads (people) to spawn.
+    int n = 8;
+
+
+
+
+
 
 
 
