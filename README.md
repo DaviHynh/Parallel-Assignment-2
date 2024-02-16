@@ -12,7 +12,7 @@ Note: I recommend using Eustis3 for testing since they have up to 64 threads and
 ## Program Documentation
 ### Problem 1
 The solution to this problem is figuring out how to track if everyone has visited the labyrinth at least once.
-There are two ways to do this. The first is by allowing everyone to eat the cake once and having one person replace the cake each time.
+There are two ways to do this. The first is by allowing everyone to eat the cake only once and having one person replace the cake each time.
 The number of cake replacements indicates the number of people who have entered and eaten a cake.
 The second method is having everyone replace the cake once and having one person eat all the cakes.
 The number of cakes eaten indicates the number people that have entered and replaced a cake.
