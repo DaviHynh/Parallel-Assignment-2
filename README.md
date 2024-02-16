@@ -22,6 +22,8 @@ It works by designating a thread as the leader, which replaces cakes and tracks 
 The goal of the other threads is to enter the labyrinth and eat the cake once if it exists.
 When the lead thread counts n - 1 cake replacements, it knows n - 1 people have entered the maze and eaten a cake.
 The lead thread then signals to the minotaur that everyone has entered at least once (since the lead thread is also guaranteed to enter once) and the game ends.
+Since the goal is to ensure that every guest has entered the labyrinth at least once, the lead thread doesn't need to eat the cake after respawning it for the last time.
+However, you could modify the code to allow the leader to eat the cake.
 
 A unique_lock is used when entering the labyrinth to ensure mutual exclusion, so that multiple threads can't enter at the same time.
 A shared_lock is used so that multiple threads can read if they were called to enter the labyrinth.
