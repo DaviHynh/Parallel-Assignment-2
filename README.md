@@ -41,7 +41,52 @@ Incrementing the number of guests is dependent on the number of available thread
 Having too many guests/threads than a machine can support will lead to a slow runtime.
 
 ### Problem 2
+Strategy #1:
+- The main benefit of this strategy is that it allows some guests to enter the showroom while also allowing them to roam around the castle.
+Also, if guests aren't responsible for opening and closing the door, they don't need to worry about changing the availability of the room.
+However, the main downside is that not every guest is guaranteed to enter when they want to.
+The showroom's door could be closed every time a guest wants to enter the room, preventing that guest from ever entering.
+It also could cause issues with multiple guests waiting/crowding around the door to try and get in as soon as someone leaves.
 
+Strategy #2:
+- This strategy is somewhat similar to strategy 1.
+Checking if a sign is available/busy is the same process as checking if the door is opened/closed.
+The main difference is that the guests are the ones setting the room's status.
+An issue might arise when a guest forgets to change the sign's status when they leave/enter.
+Another issue is that a guest isn't always guaranteed to enter, since the room might be busy every time they try to enter.
+
+Strategy #3:
+- This strategy utilizes a queue to guarantee that a guest can view the showroom.
+This solves the issue with the previous two strategies -- as long as the guest queues, they can view the vase.
+However, the biggest issue is that entering the showroom is dependent on receiving a signal.
+The first guest in the queue will never receive a signal to enter, since no one has ever entered/exited the room at the start.
+Another issue is when the queue size drops to 0 and a guest wants to re-queue.
+After that guest enters the room, he would signal no one in the queue.
+If the guest requeues to enter the room, he would wait for a signal to enter, but it would never come since no one is in the room.
+
+My Strategy:
+- My program uses a mix of concepts from the previous three strategies.
+Multiple threads are able to enter a queue -- one at a time.
+Each thread in the queue constantly checks if it's at the front.
+If a thread is at the front, it waits until the showroom is "available" before entering it.
+Upon entering the showroom, the thread leaves the queue, and the showroom becomes "busy".
+Upon exiting, the showroom becomes available for the next thread in the queue, and the current thread can decide if it wants to requeue with a 50% chance.
+This guarantees that everyone is able to enter the showroom, since every thread is forced to enqueue once.
+It also prevents the threads from waiting infinitely, since they can always see if the room is available or not.
+
+My program should always allow the guests to visit the room at least once.
+However, the threads are not guaranteed to enter the room in sequential order.
+Some threads might enqueue and requeue at different times, but they always access the showroom in FIFO order.
+
+My program is also thread safe, since it uses a unique_lock on a single mutex for multiple methods.
+This prevents data races for operations like enqueue and requeue (coarse-grained locking).
+Another unique_lock is used upon entering the showroom, to prevent multiple threads from entering at the same time.
+A shared_lock allows multiple threads to read the front of the queue, while also disabling write access.
+
+When testing my program, I tracked the output to view which threads were able to enter the showroom.
+Every time I checked the output, each thread visited the showroom at least once.
+Approximately half of the threads visited the showroom more than once, which is equivalent to my requeue chance.
+My program outputs the order of people entering the showroom.
 
 ## Compile Instructions
 These instructions assume you have a UCF account. To compile without one, check out the third section.
