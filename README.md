@@ -35,7 +35,7 @@ I ran some empirical tests for 4/8 guests to track the number times the guests w
 - 8 guests resulted in a range of 49 to 133 guest calls. (Expected is 64). A majority of calls were +/- 15 away from 64.
 
 There's some binomial distribution magic here, but I ran these tests quickly so this is as good as it's gonna get.
-From the empirical testing, I believe the runtime is approximately O(n^2).
+From the empirical testing, I believe the runtime is approximately O(n^2). O(n^3) would result in a much higher upper bound, so I don't think it's that runtime.
 
 Incrementing the number of guests is dependent on the number of available threads for a machine.
 Having too many guests/threads than a machine can support will lead to a slow runtime.
