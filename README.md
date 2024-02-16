@@ -87,6 +87,7 @@ When testing my program, I tracked the output to view which threads were able to
 Every time I checked the output, each thread visited the showroom at least once.
 Approximately half of the threads visited the showroom more than once, which is equivalent to my requeue chance.
 My program outputs the order of people entering the showroom.
+I added extra output comments to view the enqueue/requeue operations, so you could also uncomment those lines to view those operations.
 
 ## Compile Instructions
 These instructions assume you have a UCF account. To compile without one, check out the third section.
