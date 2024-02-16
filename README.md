@@ -11,6 +11,33 @@ Note: I recommend using Eustis3 for testing since they have up to 64 threads and
 
 ## Program Documentation
 ### Problem 1
+The solution to this problem is figuring out how to track if everyone has visited the labyrinth at least once.
+There are two ways to do this. The first is by allowing everyone to eat the cake once and having one person replace the cake each time.
+The number of cake replacements indicates the number of people who have entered and eaten a cake.
+The second method is having everyone replace the cake once and having one person eat all the cakes.
+The number of cakes eaten indicates the number people that have entered and replaced a cake.
+
+My program uses the former method to guarantee that everyone has entered the labyrinth at least once.
+It works by designating a thread as the leader, which replaces cakes and tracks the number of replacements.
+The goal of the other threads is to enter the labyrinth and eat the cake once if it exists.
+When the lead thread counts n - 1 cake replacements, it knows n - 1 people have entered the maze and eaten a cake.
+The lead thread then signals to the minotaur that everyone has entered at least once and the game ends.
+
+A unique_lock is used when entering the labyrinth to ensure mutual exclusion, so that multiple threads can't enter at the same time.
+A shared_lock is used so that multiple threads can read if they were called to enter the labyrinth.
+The average runtime for this program is O(n^2).
+This is because it takes an average of O(n) time for a specific thread to eat a cake and then it also takes O(n) time to replace the cake.
+
+I ran some empirical tests for 4/8 guests to track the number times the guests were called into the labyrinth before the program ended.
+- 4 guests resulted in a range of 10 to 45 guest calls. (Expected is 16). However, a majority of the calls were +/- 4 away from 16.
+- 8 guests resulted in a range of 49 to 133 guest calls. (Expected is 64). A majority of calls were +/- 15 away from 64.
+
+There's some binomial distribution magic here, but I ran these tests quickly so this is as good as it's gonna get.
+From the empirical testing, I believe the runtime is approximately O(n^2).
+
+Incrementing the number of guests is dependent on the number of available threads for a machine.
+Having too many guests/threads than a machine can support will lead to a slow runtime.
+
 
 ## Compile Instructions
 These instructions assume you have a UCF account. To compile without one, check out the third section.

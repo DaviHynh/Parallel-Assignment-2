@@ -15,6 +15,8 @@
 // I set the number of threads to 8. You can use more threads if your machine can handle it.
 // Eustis3 supports up to 64 threads, so this program should work on there.
 
+// The output for this program is in the minotaur's perspective (assuming he has cameras everywhere and can see what happens).
+
 class Labyrinth
 {
     private:
