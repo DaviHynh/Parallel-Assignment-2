@@ -10,6 +10,11 @@
 
 #define GUESTS 8
 
+// Notes:
+// Thread #1 is the designated leader thread. It could also be randomized, but for simplicity I chose 1.
+// I set the number of threads to 8. You can use more threads if your machine can handle it.
+// Eustis3 supports up to 64 threads, so this program should work on there.
+
 class Labyrinth
 {
     private:
