@@ -50,6 +50,9 @@ class ThreadQueue
     {
         std::unique_lock lock(mtx);
         q.push(guestNumber);
+
+        // Uncomment the line below to view enqueue operations:
+        // std::cout << "(ENQUEUE) " << guestNumber << "\n";
     }
 
     // Multiple threads can check if they're at the front.
@@ -77,6 +80,10 @@ class ThreadQueue
         }
 
         q.push(guestNumber);
+
+        // Uncomment the line below to view requeue operations:
+        // std::cout << "(REQUEUE) " << guestNumber << "\n";
+
         return true;
     }
 };
