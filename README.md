@@ -34,7 +34,7 @@ I ran some empirical tests for 4/8 guests to track the number times the guests w
 - 4 guests resulted in a range of 10 to 45 guest calls. (Expected is 16). However, a majority of the calls were +/- 4 away from 16.
 - 8 guests resulted in a range of 49 to 133 guest calls. (Expected is 64). A majority of calls were +/- 15 away from 64.
 
-There's some binomial distribution magic here, but I ran these tests quickly so this is as good as it's gonna get.
+There's some binomial distribution magic here, but I ran these tests quickly and with a low sample size so more testing is needed.
 From the empirical testing, I believe the runtime is approximately O(n^2). O(n^3) would result in a much higher expected value, so I don't think it's that runtime.
 
 Incrementing the number of guests is dependent on the number of available threads for a machine.
