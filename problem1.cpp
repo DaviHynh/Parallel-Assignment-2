@@ -76,14 +76,14 @@ class Labyrinth
         gameStatus = false;
     }
 
-    // Every other thread continues running until the game is ended by the leader.
+    // Every other thread continues running until the game is ended by the leader/minotaur.
     bool checkGameStatus()
     {
         std::shared_lock lock(mtx);
         return gameStatus;
     }
 
-    // Allows the minotaur to call another thread to enter.
+    // Allows the minotaur to call another random thread to enter.
     void minotaurCallsNext()
     {
         std::unique_lock lock(mtx);
@@ -94,6 +94,8 @@ class Labyrinth
     // Each thread can check if it was called by the minotaur to enter.
     int checkCalledGuestNumber()
     {
+        // Shared lock allows multiple threads to read, but not write.
+        // Reference: https://en.cppreference.com/w/cpp/thread/shared_mutex
         std::shared_lock lock(mtx);
         return calledThreadNumber;
     }
